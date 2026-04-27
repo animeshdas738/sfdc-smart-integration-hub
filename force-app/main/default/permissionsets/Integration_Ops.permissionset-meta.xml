@@ -67,6 +67,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Integration_Log__c.Response_Body__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Integration_Log__c.Related_Record_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>

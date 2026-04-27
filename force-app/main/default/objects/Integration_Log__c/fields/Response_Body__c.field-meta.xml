@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Response_Body__c</fullName>
+    <label>Response Body</label>
+    <type>LongTextArea</type>
+    <length>32768</length>
+    <visibleLines>10</visibleLines>
+    <description>Raw response body returned from the external system for this attempt</description>
+    <trackHistory>false</trackHistory>
+</CustomField>
