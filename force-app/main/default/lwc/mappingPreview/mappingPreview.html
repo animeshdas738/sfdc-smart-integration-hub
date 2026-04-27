@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Mapping Preview" icon-name="custom:custom14">
+        <div class="slds-p-around_medium">
+            <div>
+                <label>Template</label>
+                <textarea rows="4" cols="80" onchange={handleTemplateChange}>{template}</textarea>
+                <button onclick={handleTemplatePreview}>Preview Template</button>
+            </div>
+            <div style="margin-top:1rem;">
+                <label>Declarative Rules</label>
+                <textarea rows="4" cols="80" onchange={handleRulesChange}>{rules}</textarea>
+                <button onclick={handleDeclarativePreview}>Preview Rules</button>
+            </div>
+            <div style="margin-top:1rem;">
+                <label>Sample Context (JSON)</label>
+                <textarea rows="4" cols="80" onchange={handleSampleChange}>{sample}</textarea>
+            </div>
+            <div style="margin-top:1rem;">
+                <label>Output</label>
+                <textarea rows="8" cols="80" disabled>{output}</textarea>
+            </div>
+        </div>
+    </lightning-card>
+</template>

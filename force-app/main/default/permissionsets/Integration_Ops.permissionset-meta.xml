@@ -124,4 +124,33 @@
         <tab>Integration_Endpoint__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <!-- Apex class access required for LWC controllers and integration utilities -->
+    <classAccesses>
+        <apexClass>MappingPreviewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MappingHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IntegrationService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IntegrationExecutor</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IntegrationRetryScheduler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IntegrationRetryBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CalloutWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
 </PermissionSet>
