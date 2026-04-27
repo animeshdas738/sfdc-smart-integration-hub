@@ -3,7 +3,7 @@ private class IntegrationExecutorTest {
 
     static testMethod void testSuccessPath() {
         // arrange
-        Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(200, '{"ok":true}'));
+    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(200, '{"ok":true}'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-success', Payload__c = '{"foo":"bar"}', Status__c='Queued');
         insert log;
 
@@ -19,7 +19,7 @@ private class IntegrationExecutorTest {
 
     static testMethod void testTransientRetryPath() {
         // arrange - mock a 500
-        Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(500, 'server error'));
+    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(500, 'server error'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-transient', Payload__c = '{}', Status__c='Queued');
         insert log;
 
@@ -30,14 +30,14 @@ private class IntegrationExecutorTest {
 
         // assert
         Integration_Log__c[] res = [SELECT Id, Status__c, Attempts__c, Next_Attempt_At__c FROM Integration_Log__c WHERE Id = :log.Id];
-        System.assertEquals('RetryScheduled', res[0].Status__c);
-        System.assertEquals(1, Integer.valueOf(res[0].Attempts__c));
+    System.assertEquals('RetryScheduled', res[0].Status__c);
+    System.assertEquals(1, IntegrationAttemptsHelper.getAttempts(res[0]));
         System.assertNotEquals(null, res[0].Next_Attempt_At__c);
     }
 
     static testMethod void testPermanentDLQPath() {
         // arrange - mock a 400
-        Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(400, 'bad payload'));
+    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(400, 'bad payload'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-perm', Payload__c = '{}', Status__c='Queued');
         insert log;
 
