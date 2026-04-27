@@ -1,7 +1,7 @@
 @isTest
 private class IntegrationServiceTest {
     @isTest static void testSuccessCallout() {
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(200, '{"result":"ok"}'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(200, '{"result":"ok"}'));
         Test.startTest();
         IntegrationService.send('TestInt', 'pid-1', '{"name":"ok"}');
         Test.stopTest();
@@ -12,7 +12,7 @@ private class IntegrationServiceTest {
     }
 
     @isTest static void testTransientFailureSchedulesRetry() {
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(500, 'Server error'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(500, 'Server error'));
         Test.startTest();
         IntegrationService.send('TestInt', 'pid-2', '{"name":"fail5xx"}');
         Test.stopTest();
@@ -25,7 +25,7 @@ private class IntegrationServiceTest {
     }
 
     @isTest static void testPermanentFailureGoesToDLQ() {
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(400, 'Client error'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(400, 'Client error'));
         Test.startTest();
         IntegrationService.send('TestInt', 'pid-3', '{"name":"fail4xx"}');
         Test.stopTest();

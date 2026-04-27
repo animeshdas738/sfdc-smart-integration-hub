@@ -3,7 +3,7 @@ private class IntegrationExecutorTest {
 
     static testMethod void testSuccessPath() {
         // arrange
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(200, '{"ok":true}'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(200, '{"ok":true}'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-success', Payload__c = '{"foo":"bar"}', Status__c='Queued');
         insert log;
 
@@ -19,7 +19,7 @@ private class IntegrationExecutorTest {
 
     static testMethod void testTransientRetryPath() {
         // arrange - mock a 500
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(500, 'server error'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(500, 'server error'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-transient', Payload__c = '{}', Status__c='Queued');
         insert log;
 
@@ -37,7 +37,7 @@ private class IntegrationExecutorTest {
 
     static testMethod void testPermanentDLQPath() {
         // arrange - mock a 400
-    Test.setMock(HttpCalloutMock.class, new TestMocks.MockCalloutGenerator(400, 'bad payload'));
+    Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(400, 'bad payload'));
         Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-perm', Payload__c = '{}', Status__c='Queued');
         insert log;
 
