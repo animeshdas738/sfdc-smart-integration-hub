@@ -17,11 +17,11 @@ public with sharing class IntegrationService {
     CalloutWrapper.CalloutResult cr = CalloutWrapper.postToNamedCredential(IntegrationConstants.DEFAULT_NAMED_CREDENTIAL, IntegrationConstants.DEFAULT_RESOURCE_PATH, payloadJson);
         ErrorMapper.ErrorResult er = ErrorMapper.classify(cr.statusCode, null);
         if (cr.statusCode != null && cr.statusCode >= 200 && cr.statusCode < 300) {
-            log.Status__c = 'Success';
+            log.Status__c = IntegrationConstants.STATUS_SUCCESS;
             log.Error_Code__c = String.valueOf(cr.statusCode);
             log.Error_Message__c = cr.body;
         } else if (er.category == ErrorMapper.ErrorCategory.TRANSIENT) {
-            log.Attempts__c = 1;
+            IntegrationAttemptsHelper.setAttempts(log, 1);
             log.Next_Attempt_At__c = RetryCalculator.computeNextAttempt(1, IntegrationConfig.getBaseDelaySeconds());
             log.Status__c = IntegrationConstants.STATUS_RETRYSCHEDULED;
             log.Error_Code__c = (cr.statusCode == null) ? 'EX' : String.valueOf(cr.statusCode);

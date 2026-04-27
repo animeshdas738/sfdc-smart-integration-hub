@@ -36,11 +36,7 @@ public with sharing class IntegrationExecutor implements Queueable, Database.All
                 log.Error_Code__c = String.valueOf(cr.statusCode);
                 log.Error_Message__c = cr.body;
             } else if (er.category == ErrorMapper.ErrorCategory.TRANSIENT) {
-                // compute next attempts with explicit types to avoid Decimal/Integer mismatches
-                Decimal currentAttempts = log.Attempts__c;
-                Integer attemptsInt = (currentAttempts == null) ? 1 : currentAttempts.intValue() + 1;
-                // store attempts back as Decimal because Attempts__c is a Number field
-                log.Attempts__c = Decimal.valueOf(attemptsInt);
+                Integer attemptsInt = IntegrationAttemptsHelper.incrementAttempts(log);
 
                 Integer maxAttempts = IntegrationConfig.getMaxAttempts();
                 Integer baseDelay = IntegrationConfig.getBaseDelaySeconds();
