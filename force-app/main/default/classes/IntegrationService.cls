@@ -1,5 +1,11 @@
 public with sharing class IntegrationService {
     public static void send(String integrationName, String payloadId, String payloadJson) {
+        // idempotency: if a successful log exists for this payloadId, skip reprocessing
+        if (payloadId != null) {
+            List<Integration_Log__c> existing = [SELECT Id, Status__c FROM Integration_Log__c WHERE Payload_Id__c = :payloadId AND Status__c = 'Success' LIMIT 1];
+            if (!existing.isEmpty()) return;
+        }
+
         Integration_Log__c log = new Integration_Log__c();
         log.Integration_Name__c = integrationName;
         log.Payload_Id__c = payloadId;
