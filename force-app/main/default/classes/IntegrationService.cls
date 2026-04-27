@@ -16,7 +16,7 @@ public with sharing class IntegrationService {
             log.Error_Message__c = cr.body;
         } else if (er.category == ErrorMapper.ErrorCategory.TRANSIENT) {
             log.Attempts__c = 1;
-            log.Next_Attempt_At__c = RetryCalculator.computeNextAttempt(1, 30);
+            log.Next_Attempt_At__c = RetryCalculator.computeNextAttempt(1, IntegrationConfig.getBaseDelaySeconds());
             log.Status__c = 'RetryScheduled';
             log.Error_Code__c = (cr.statusCode == null) ? 'EX' : String.valueOf(cr.statusCode);
             log.Error_Message__c = cr.body;
