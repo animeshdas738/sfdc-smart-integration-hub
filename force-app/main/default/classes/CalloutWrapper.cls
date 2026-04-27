@@ -7,9 +7,9 @@ public with sharing class CalloutWrapper {
 
     public static CalloutResult postToNamedCredential(String namedCredential, String path, String body) {
         HttpRequest req = new HttpRequest();
-        req.setEndpoint('callout:' + namedCredential + path);
+    req.setEndpoint('callout:' + namedCredential + path);
         req.setMethod('POST');
-        req.setHeader('Content-Type', 'application/json');
+    req.setHeader(IntegrationConstants.HEADER_CONTENT_TYPE, IntegrationConstants.CONTENT_TYPE_JSON);
         req.setBody(body);
 
         Http http = new Http();
