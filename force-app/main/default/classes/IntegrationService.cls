@@ -21,28 +21,14 @@ public with sharing class IntegrationService {
     log.Status__c = IntegrationConstants.STATUS_QUEUED;
         insert log;
 
-        // perform callout synchronously for demo; production should queue this
-    CalloutWrapper.CalloutResult cr = CalloutWrapper.postToNamedCredential(IntegrationConstants.DEFAULT_NAMED_CREDENTIAL, IntegrationConstants.DEFAULT_RESOURCE_PATH, payloadJson);
-        ErrorMapper.ErrorResult er = ErrorMapper.classify(cr.statusCode, null);
-        if (cr.statusCode != null && cr.statusCode >= 200 && cr.statusCode < 300) {
-            log.Status__c = IntegrationConstants.STATUS_SUCCESS;
-            log.Error_Code__c = String.valueOf(cr.statusCode);
-            log.Error_Message__c = cr.body;
-        } else if (er.category == ErrorMapper.ErrorCategory.TRANSIENT) {
-            IntegrationAttemptsHelper.setAttempts(log, 1);
-            log.Next_Attempt_At__c = RetryCalculator.computeNextAttempt(1, IntegrationConfig.getBaseDelaySeconds());
-            log.Status__c = IntegrationConstants.STATUS_RETRYSCHEDULED;
-            log.Error_Code__c = (cr.statusCode == null) ? 'EX' : String.valueOf(cr.statusCode);
-            log.Error_Message__c = cr.body;
-        } else {
+        // enqueue a Queueable to perform the callout in a separate transaction
+        try {
+            System.enqueueJob(new IntegrationExecutor(new List<Id>{ log.Id }));
+        } catch (Exception ex) {
+            // If enqueue fails, mark the log as DeadLetter so it is visible to operators
             log.Status__c = IntegrationConstants.STATUS_DEADLETTER;
-            // create DLQ record
-            Integration_DLQ__c dlq = new Integration_DLQ__c();
-            dlq.Integration_Log__c = log.Id;
-            dlq.Poison_Reason__c = (cr.body == null) ? 'Permanent failure' : cr.body;
-            dlq.Raw_Payload__c = payloadJson;
-            insert dlq;
+            log.Error_Message__c = 'Failed to enqueue executor: ' + ex.getMessage();
+            update log;
         }
-        update log;
     }
 }
