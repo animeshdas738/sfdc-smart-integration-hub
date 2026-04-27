@@ -9,4 +9,5 @@
     <description>App for integration operations and monitoring</description>
     <tabs>Integration_Log__c</tabs>
     <tabs>Integration_DLQ__c</tabs>
+    <tabs>Integration_Endpoint__c</tabs>
 </CustomApplication>
