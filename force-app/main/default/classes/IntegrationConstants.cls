@@ -8,8 +8,8 @@ public class IntegrationConstants {
     public static final String STATUS_FAILED = 'Failed';
 
     // Callout config
-    public static final String DEFAULT_NAMED_CREDENTIAL = 'Test_Http_Bin';
-    public static final String DEFAULT_RESOURCE_PATH = '/resource';
+    public static final String DEFAULT_NAMED_CREDENTIAL = 'Gemini';
+    public static final String DEFAULT_RESOURCE_PATH = '/v1beta/models/gemini-2.5-flash:generateContent';
     public static final String HEADER_CONTENT_TYPE = 'Content-Type';
     public static final String CONTENT_TYPE_JSON = 'application/json';
 
