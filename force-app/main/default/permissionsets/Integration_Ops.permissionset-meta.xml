@@ -37,6 +37,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>Full access to Integration Log and DLQ objects and fields for operations users</description>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>Gemini_External_Auth-Gemini_Principal</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Integration_DLQ__c.Integration_Log__c</field>
