@@ -16,5 +16,4 @@
     <tabs>Integration_DLQ__c</tabs>
     <tabs>Integration_Log__c</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Salesforce_Integration_Hub_UtilityBar</utilityBar>
 </CustomApplication>
