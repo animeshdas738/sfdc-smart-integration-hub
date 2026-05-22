@@ -8,7 +8,8 @@ public with sharing class IntegrationExecutor implements Queueable, Database.All
     public void execute(QueueableContext ctx) {
         if (logIds.isEmpty()) return;
 
-    List<Integration_Log__c> logs = [SELECT Id, Integration_Name__c, Payload_Id__c, Payload__c, Status__c, Attempts__c, Next_Attempt_At__c
+    List<Integration_Log__c> logs = [SELECT Id, Integration_Name__c, Payload_Id__c, Payload__c, Status__c, Attempts__c, Next_Attempt_At__c,
+                                                Integration_Endpoint__r.Named_Credential__c, Integration_Endpoint__r.Endpoint_Path__c
                                          FROM Integration_Log__c
                                          WHERE Id IN :logIds
                                          FOR UPDATE];
@@ -28,7 +29,13 @@ public with sharing class IntegrationExecutor implements Queueable, Database.All
             }
             if (!ready) continue;
 
-            CalloutWrapper.CalloutResult cr = CalloutWrapper.postToNamedCredential(IntegrationConstants.DEFAULT_NAMED_CREDENTIAL, IntegrationConstants.DEFAULT_RESOURCE_PATH, log.Payload__c);
+            String namedCredential = (log.Integration_Endpoint__r != null && log.Integration_Endpoint__r.Named_Credential__c != null)
+                ? log.Integration_Endpoint__r.Named_Credential__c
+                : IntegrationConstants.DEFAULT_NAMED_CREDENTIAL;
+            String resourcePath = (log.Integration_Endpoint__r != null && log.Integration_Endpoint__r.Endpoint_Path__c != null)
+                ? log.Integration_Endpoint__r.Endpoint_Path__c
+                : IntegrationConstants.DEFAULT_RESOURCE_PATH;
+            CalloutWrapper.CalloutResult cr = CalloutWrapper.postToNamedCredential(namedCredential, resourcePath, log.Payload__c);
             ErrorMapper.ErrorResult er = ErrorMapper.classify(cr.statusCode, null);
 
             if (cr.statusCode != null && cr.statusCode >= 200 && cr.statusCode < 300) {
