@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Source__c</fullName>
+    <fullName>Endpoint_Path__c</fullName>
+    <description>API path appended to Named Credential base URL</description>
     <externalId>false</externalId>
-    <label>Source</label>
-    <length>100</length>
+    <label>Endpoint Path</label>
+    <length>255</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>

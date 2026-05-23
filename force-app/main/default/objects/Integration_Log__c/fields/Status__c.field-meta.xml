@@ -2,27 +2,41 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
                 <fullName>Queued</fullName>
+                <default>false</default>
+                <label>Queued</label>
             </value>
             <value>
                 <fullName>InProgress</fullName>
+                <default>false</default>
+                <label>InProgress</label>
             </value>
             <value>
                 <fullName>Success</fullName>
+                <default>false</default>
+                <label>Success</label>
             </value>
             <value>
                 <fullName>RetryScheduled</fullName>
+                <default>false</default>
+                <label>RetryScheduled</label>
             </value>
             <value>
                 <fullName>DeadLetter</fullName>
+                <default>false</default>
+                <label>DeadLetter</label>
             </value>
             <value>
                 <fullName>Failed</fullName>
+                <default>false</default>
+                <label>Failed</label>
             </value>
         </valueSetDefinition>
     </valueSet>

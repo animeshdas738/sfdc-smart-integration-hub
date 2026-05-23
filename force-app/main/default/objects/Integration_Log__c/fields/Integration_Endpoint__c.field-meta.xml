@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Endpoint__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
     <label>Integration Endpoint</label>
-    <type>Lookup</type>
     <referenceTo>Integration_Endpoint__c</referenceTo>
-    <relationshipName>Integration_Endpoint</relationshipName>
     <relationshipLabel>Integration Endpoint</relationshipLabel>
+    <relationshipName>Integration_Endpoint</relationshipName>
     <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
 </CustomField>

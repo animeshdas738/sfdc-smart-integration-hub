@@ -6,12 +6,13 @@
     </brand>
     <formFactors>Small</formFactors>
     <formFactors>Large</formFactors>
-    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
-    <isOmniPinnedViewEnabled>true</isOmniPinnedViewEnabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <label>Salesforce Integration Hub</label>
     <navType>Standard</navType>
+    <setupExperience>all</setupExperience>
     <tabs>Integration_Endpoint__c</tabs>
     <tabs>Integration_DLQ__c</tabs>
     <tabs>Integration_Log__c</tabs>
