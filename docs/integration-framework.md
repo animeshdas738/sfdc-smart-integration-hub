@@ -49,6 +49,78 @@ Sequence diagrams (simplified):
 
 ---
 
+## Platform Event Integration
+
+The framework exposes a generic `Integration_Event__e` platform event as a decoupled, low-code-friendly entry point into the integration pipeline. Any process — Apex trigger, Flow, external API — can publish this event to invoke any registered `Integration_Endpoint__c` without coupling to `IntegrationService` directly.
+
+### Why a platform event?
+
+| Concern | How the event addresses it |
+|---|---|
+| Decoupling | Publishers carry no dependency on service classes or endpoint config |
+| Async by default | `PublishAfterCommit` fires outside the publishing transaction — source record is guaranteed committed |
+| Governor-limit isolation | Subscriber runs in its own transaction; callout limits don't bleed into the publishing flow |
+| Built-in replay | EventBus retries delivery on subscriber failure (up to 24 h) |
+| Flow / low-code support | Flows publish platform events natively — no Apex needed to wire up new integrations |
+
+### Event: `Integration_Event__e`
+
+| Field | Type | Required | Purpose |
+|---|---|---|---|
+| `Integration_Name__c` | Text(255) | Yes | Name written to `Integration_Log__c.Integration_Name__c` (e.g. `GenXAgent_CaseResolution`) |
+| `Endpoint_Id__c` | Text(18) | Yes | ID of the `Integration_Endpoint__c` record that defines the target callout |
+| `Payload__c` | Long Text Area(131072) | Yes | Fully-resolved JSON body to POST to the endpoint |
+| `Payload_Id__c` | Text(255) | No | Idempotency key; auto-generated (timestamp + random) if blank |
+| `Source_Object_Type__c` | Text(255) | No | Object API name of the triggering record (e.g. `CaseComment`) — written to `Integration_Log__c.Source__c` |
+| `Source_Record_Id__c` | Text(18) | No | Salesforce ID of the triggering record — written to `Integration_Log__c.Related_Record_Id__c` |
+
+**Publish behaviour:** `PublishAfterCommit` — guarantees the source record is persisted before the subscriber runs.
+
+### Subscriber flow
+
+```
+Publisher (Flow / Apex Trigger / External API)
+  └─► EventBus.publish(Integration_Event__e)
+        └─► IntegrationEventTrigger  (after insert)
+              └─► IntegrationEventHandler.handle(Trigger.new)
+                    │  • validates required fields
+                    │  • auto-generates Payload_Id__c if blank
+                    └─► IntegrationService.send(name, payloadId, payload, endpointId, sourceType, sourceRecordId)
+                          └─► Integration_Log__c  (Status = Queued)
+                                └─► IntegrationExecutor (Queueable)
+                                      └─► HTTP POST via Named Credential
+```
+
+### Error handling in the subscriber
+
+- Events are processed individually inside a `try/catch`; one bad event does not block others in the same batch.
+- If `Integration_Name__c`, `Endpoint_Id__c`, or `Payload__c` is blank the event is skipped and a `WARN` log is emitted.
+- Unhandled exceptions are caught, logged at `ERROR` level, and the EventBus retries delivery.
+
+### Idempotency
+
+When `Payload_Id__c` is provided, the existing idempotency guard in `IntegrationService` prevents duplicate `Integration_Log__c` records. Publishers should set `Payload_Id__c` to a stable, business-meaningful key (e.g. `sentiment-<CaseCommentId>`) so re-delivery is safe.
+
+### Usage example — Case Comment sentiment analysis
+
+Publish from a Flow or an Apex trigger on `CaseComment`:
+
+```apex
+Integration_Event__e evt = new Integration_Event__e(
+    Integration_Name__c   = 'SentimentAnalysis',
+    Endpoint_Id__c        = '<SentimentAnalysis_Endpoint_Id__c>',
+    Payload__c            = '{"text":"' + comment.CommentBody + '"}',
+    Payload_Id__c         = 'sentiment-' + comment.Id,
+    Source_Object_Type__c = 'CaseComment',
+    Source_Record_Id__c   = comment.Id
+);
+EventBus.publish(evt);
+```
+
+No changes to `IntegrationService`, `IntegrationExecutor`, or any existing class are needed. Register a new `Integration_Endpoint__c` record and publish the event.
+
+---
+
 ## Contracts
 
 - Input: JSON payloads (example):

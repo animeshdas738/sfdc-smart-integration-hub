@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlatformEventSubscriberConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <batchSize>2000</batchSize>
+    <masterLabel>Integration Event Trigger Subscriber Config</masterLabel>
+    <platformEventConsumer>IntegrationEventTrigger</platformEventConsumer>
+    <user>animesh.das738.133728564969@agentforce.com</user>
+</PlatformEventSubscriberConfig>
