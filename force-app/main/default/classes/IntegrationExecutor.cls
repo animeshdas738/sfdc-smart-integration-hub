@@ -37,7 +37,7 @@ public with sharing class IntegrationExecutor implements Queueable, Database.All
                 : IntegrationConstants.DEFAULT_RESOURCE_PATH;
             Long startMs = System.currentTimeMillis();
             CalloutWrapper.CalloutResult cr = CalloutWrapper.postToNamedCredential(namedCredential, resourcePath, log.Payload__c);
-            ((SObject)log).put('Duration_ms__c', System.currentTimeMillis() - startMs);
+            ((SObject)log).put('Duration_ms__c', Decimal.valueOf(System.currentTimeMillis() - startMs));
             ErrorMapper.ErrorResult er = ErrorMapper.classify(cr.statusCode, null);
 
             if (cr.statusCode != null && cr.statusCode >= 200 && cr.statusCode < 300) {
