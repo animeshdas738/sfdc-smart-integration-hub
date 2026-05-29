@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Poison_Reason__c</fullName>
+    <inlineHelpText>Reason the message was classified as undeliverable — either the error response body from the external system or "Transient failures exceeded" when max attempts were reached.</inlineHelpText>
     <label>Poison Reason</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

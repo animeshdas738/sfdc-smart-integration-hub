@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Payload_Id__c</fullName>
+    <inlineHelpText>Optional idempotency key. If a successful log already exists for this ID, the handler skips processing. If blank, the handler auto-generates a unique key. Use a stable business key to prevent duplicate processing on event replay.</inlineHelpText>
     <label>Payload Id</label>
     <length>255</length>
     <required>false</required>

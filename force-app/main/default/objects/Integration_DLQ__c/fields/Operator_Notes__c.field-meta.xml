@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Operator_Notes__c</fullName>
+    <inlineHelpText>Free-text area for operators to document investigation steps, root cause, or resolution actions taken on this dead-letter entry.</inlineHelpText>
     <label>Operator Notes</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

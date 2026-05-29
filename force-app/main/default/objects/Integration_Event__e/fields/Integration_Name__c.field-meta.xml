@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Name__c</fullName>
+    <inlineHelpText>Logical name of the integration flow to invoke (e.g. GenXAgent_CaseResolution). Written to Integration_Log__c.Integration_Name__c for filtering and reporting.</inlineHelpText>
     <label>Integration Name</label>
     <length>255</length>
     <required>false</required>

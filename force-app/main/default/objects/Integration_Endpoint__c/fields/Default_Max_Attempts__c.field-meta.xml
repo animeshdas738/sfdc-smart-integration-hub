@@ -3,6 +3,7 @@
     <fullName>Default_Max_Attempts__c</fullName>
     <defaultValue>5</defaultValue>
     <externalId>false</externalId>
+    <inlineHelpText>Per-endpoint maximum retry attempts before moving to the Dead-Letter Queue. Overrides the org-wide Integration_Settings__mdt value. Default is 5.</inlineHelpText>
     <label>Default Max Attempts</label>
     <precision>3</precision>
     <required>false</required>

@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Payload_Mapping__c</fullName>
     <description>JSON template or mapping definition that describes how Salesforce fields map to external payload</description>
+    <inlineHelpText>JSON template for the request body. Use {{{tokenName}}} placeholders for dynamic values that callers replace before publishing (e.g. {{{subject}}}, {{{prompt}}}).</inlineHelpText>
     <label>Payload Mapping</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

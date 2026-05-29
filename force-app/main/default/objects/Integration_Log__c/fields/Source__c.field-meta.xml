@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Source__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>API name of the Salesforce object that triggered this integration (e.g. CaseComment, Case). Populated from Integration_Event__e.Source_Object_Type__c.</inlineHelpText>
     <label>Source</label>
     <length>100</length>
     <required>false</required>

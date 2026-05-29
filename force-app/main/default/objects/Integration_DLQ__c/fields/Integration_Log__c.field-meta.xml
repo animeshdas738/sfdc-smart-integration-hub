@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Log__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>The original Integration Log record that exhausted all retry attempts and was moved to this Dead-Letter Queue entry.</inlineHelpText>
     <label>Integration Log</label>
     <referenceTo>Integration_Log__c</referenceTo>
     <relationshipLabel>Integration Log</relationshipLabel>

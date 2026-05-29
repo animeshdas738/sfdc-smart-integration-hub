@@ -111,12 +111,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Integration_Log__c.Duration_ms__c</field>
+        <field>Integration_Log__c.CreatedByIntegration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Integration_Log__c.CreatedByIntegration__c</field>
+        <field>Integration_Log__c.Duration_ms__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -208,6 +208,10 @@
     </objectPermissions>
     <tabSettings>
         <tab>Integration_DLQ__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Integration_Dashboard</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>

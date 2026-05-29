@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
+    <inlineHelpText>Current processing state. Queued: awaiting execution. InProgress: callout running. Success: completed. RetryScheduled: transient failure, will retry. DeadLetter: moved to DLQ. Failed: terminal failure.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

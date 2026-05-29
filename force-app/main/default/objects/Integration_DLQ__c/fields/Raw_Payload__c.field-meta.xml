@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Raw_Payload__c</fullName>
+    <inlineHelpText>The exact JSON request payload at the time of final failure, preserved for investigation and manual replay after fixing the root cause.</inlineHelpText>
     <label>Raw Payload</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

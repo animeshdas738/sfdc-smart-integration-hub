@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Duration_ms__c</fullName>
+    <inlineHelpText>Elapsed time in milliseconds from when the HTTP callout was sent to when the response was received. Recorded for all outcomes (success and failure) by IntegrationExecutor.</inlineHelpText>
     <label>Duration (ms)</label>
     <precision>18</precision>
     <scale>0</scale>

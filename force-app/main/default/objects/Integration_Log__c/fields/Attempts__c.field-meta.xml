@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Attempts__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>Number of callout attempts made so far, including the initial attempt. Incremented by IntegrationExecutor on each transient failure.</inlineHelpText>
     <label>Attempts</label>
     <precision>3</precision>
     <required>false</required>

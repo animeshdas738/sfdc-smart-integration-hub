@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active__c</fullName>
     <defaultValue>true</defaultValue>
+    <inlineHelpText>When unchecked, this endpoint is excluded from all callouts. Use to disable an integration without deleting the configuration.</inlineHelpText>
     <label>Active</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

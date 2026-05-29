@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CreatedByIntegration__c</fullName>
     <defaultValue>false</defaultValue>
+    <inlineHelpText>Checked when this log record was created by an automated integration process rather than a human user. Useful for filtering system-generated records in reports.</inlineHelpText>
     <label>Created By Integration</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

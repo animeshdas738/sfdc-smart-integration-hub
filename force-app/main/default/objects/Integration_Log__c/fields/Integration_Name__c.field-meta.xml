@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Name__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>Logical name identifying the integration flow (e.g. GenXAgent_CaseResolution). Used for filtering logs in the dashboard and for grouping retry batches.</inlineHelpText>
     <label>Integration Name</label>
     <length>255</length>
     <required>false</required>

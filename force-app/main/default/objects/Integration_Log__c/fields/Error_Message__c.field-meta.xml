@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Error_Message__c</fullName>
+    <inlineHelpText>Full error detail from the last failed attempt — either the HTTP response body or the Apex exception message. Cleared on success.</inlineHelpText>
     <label>Error Message</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

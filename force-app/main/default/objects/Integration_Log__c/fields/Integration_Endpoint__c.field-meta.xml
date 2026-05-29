@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Endpoint__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>The Integration Endpoint record that defines the Named Credential, path, and retry settings used for this callout. Optional — if blank, IntegrationExecutor falls back to default constants.</inlineHelpText>
     <label>Integration Endpoint</label>
     <referenceTo>Integration_Endpoint__c</referenceTo>
     <relationshipLabel>Integration Endpoint</relationshipLabel>

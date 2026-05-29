@@ -3,6 +3,7 @@
     <fullName>Endpoint_Path__c</fullName>
     <description>API path appended to Named Credential base URL</description>
     <externalId>false</externalId>
+    <inlineHelpText>URL path appended to the Named Credential base URL at callout time (e.g. /agents/resolve). Must start with a forward slash.</inlineHelpText>
     <label>Endpoint Path</label>
     <length>255</length>
     <required>false</required>
