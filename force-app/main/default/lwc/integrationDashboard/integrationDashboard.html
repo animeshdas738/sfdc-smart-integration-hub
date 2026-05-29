@@ -1,0 +1,107 @@
+<template>
+    <lightning-card icon-name="standard:metrics">
+        <div slot="title">
+            <span class="slds-text-heading_small">Integration Hub Dashboard</span>
+        </div>
+        <div slot="actions">
+            <lightning-combobox
+                name="dateRange"
+                value={selectedDays}
+                options={dateRangeOptions}
+                variant="label-hidden"
+                onchange={handleDateRangeChange}>
+            </lightning-combobox>
+        </div>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+
+            <!-- Loading spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading dashboard" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error state -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <lightning-icon icon-name="utility:error" alternative-text="Error" size="small" class="slds-m-right_x-small"></lightning-icon>
+                    {error}
+                </div>
+            </template>
+
+            <!-- Dashboard content -->
+            <template if:true={hasStats}>
+
+                <!-- KPI tiles -->
+                <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+                        <div class="tile tile-neutral">
+                            <p class="tile-label">Total Requests</p>
+                            <p class="tile-value">{stats.totalRequests}</p>
+                            <p class="tile-sub">past {selectedDays} day(s)</p>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+                        <div class="tile tile-success">
+                            <p class="tile-label">Success Rate</p>
+                            <p class="tile-value">{successRateFormatted}</p>
+                            <p class="tile-sub">{stats.successCount} succeeded</p>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+                        <div class="tile tile-error">
+                            <p class="tile-label">Failures</p>
+                            <p class="tile-value">{stats.failureCount}</p>
+                            <p class="tile-sub">dead-letter / failed</p>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+                        <div class="tile tile-warning">
+                            <p class="tile-label">Retries</p>
+                            <p class="tile-value">{stats.retryCount}</p>
+                            <p class="tile-sub">scheduled for retry</p>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+                        <div class="tile tile-neutral">
+                            <p class="tile-label">Avg Latency</p>
+                            <p class="tile-value">{avgLatencyFormatted}</p>
+                            <p class="tile-sub">successful calls</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Per-integration breakdown -->
+                <div class="slds-m-top_medium">
+                    <p class="slds-text-title_caps slds-m-bottom_x-small">By Integration</p>
+                    <lightning-datatable
+                        key-field="integrationName"
+                        data={stats.byIntegration}
+                        columns={columns}
+                        hide-checkbox-column
+                        resize-column-disabled>
+                    </lightning-datatable>
+                </div>
+
+            </template>
+
+            <!-- Empty state -->
+            <template if:true={isEmpty}>
+                <div class="slds-illustration slds-illustration_small slds-p-around_large">
+                    <lightning-icon icon-name="standard:empty" size="large"></lightning-icon>
+                    <p class="slds-text-heading_medium slds-m-top_small">No data in this period</p>
+                    <p class="slds-text-body_regular slds-m-top_x-small">Try selecting a wider date range.</p>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
