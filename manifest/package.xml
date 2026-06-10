@@ -1,41 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <!--<types>
-        <members>*</members>
+
+    <types>
+        <members>CalloutWrapper</members>
+        <members>ErrorMapper</members>
+        <members>IntegrationAdditionalTests</members>
+        <members>IntegrationAttemptsHelper</members>
+        <members>IntegrationConfig</members>
+        <members>IntegrationConstants</members>
+        <members>IntegrationDashboardController</members>
+        <members>IntegrationEventHandler</members>
+        <members>IntegrationEventHandlerTest</members>
+        <members>IntegrationExecutor</members>
+        <members>IntegrationExecutorTest</members>
+        <members>IntegrationRetryBatch</members>
+        <members>IntegrationRetryScheduler</members>
+        <members>IntegrationRetrySchedulerTest</members>
+        <members>IntegrationService</members>
+        <members>IntegrationServiceTest</members>
+        <members>MappingHelper</members>
+        <members>MappingHelperTest</members>
+        <members>MappingPreviewController</members>
+        <members>MockCalloutGenerator</members>
+        <members>MockHttpResponseGenerator</members>
+        <members>RetryCalculator</members>
         <name>ApexClass</name>
     </types>
+
     <types>
-        <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexPage</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTestSuite</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>IntegrationEventTrigger</members>
         <name>ApexTrigger</name>
     </types>
+
     <types>
-        <members>*</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>integrationDashboard</members>
+        <members>mappingPreview</members>
         <name>LightningComponentBundle</name>
     </types>
+
     <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>-->
+        <members>Integration_DLQ__c</members>
+        <members>Integration_Endpoint__c</members>
+        <members>Integration_Event__e</members>
+        <members>Integration_Log__c</members>
+        <members>Integration_Settings__mdt</members>
+        <name>CustomObject</name>
+    </types>
+
     <types>
-        <members>*</members>
+        <members>Integration_DLQ__c-Integration DLQ Layout</members>
+        <members>Integration_Endpoint__c-Integration Endpoint Layout</members>
+        <members>Integration_Log__c-Integration Log Layout</members>
+        <name>Layout</name>
+    </types>
+
+    <types>
+        <members>Integration_DLQ__c.All</members>
+        <members>Integration_Endpoint__c.All</members>
+        <members>Integration_Log__c.All</members>
+        <name>ListView</name>
+    </types>
+
+    <types>
+        <members>Gemini_API</members>
+        <members>GenxAgent_api</members>
+        <members>Test_Http_Bin</members>
+        <name>NamedCredential</name>
+    </types>
+
+    <types>
+        <members>Gemini_External_Auth</members>
+        <members>Genx_External_Auth</members>
+        <name>ExternalCredential</name>
+    </types>
+
+    <types>
+        <members>Integration_Ops</members>
+        <name>PermissionSet</name>
+    </types>
+
+    <types>
+        <members>Integration_Ops</members>
+        <members>Salesforce_Integration_Hub</members>
+        <name>CustomApplication</name>
+    </types>
+
+    <types>
+        <members>Integration_Dashboard</members>
+        <members>Integration_DLQ__c</members>
+        <members>Integration_Endpoint__c</members>
+        <members>Integration_Log__c</members>
+        <name>CustomTab</name>
+    </types>
+
+    <types>
+        <members>IntegrationEventTrigger</members>
         <name>PlatformEventSubscriberConfig</name>
     </types>
-    
+
     <version>66.0</version>
 </Package>
