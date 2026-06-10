@@ -16,7 +16,7 @@ public with sharing class IntegrationService {
         if (payloadId != null) {
             List<Integration_Log__c> existing = [
                 SELECT Id FROM Integration_Log__c
-                WHERE Payload_Id__c = :payloadId AND Status__c = :IntegrationConstants.STATUS_SUCCESS
+                WHERE Payload_Id__c = :payloadId AND Status__c != :IntegrationConstants.STATUS_DEADLETTER
                 LIMIT 1
             ];
             if (!existing.isEmpty()) return;

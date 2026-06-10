@@ -2,23 +2,25 @@
 private class IntegrationAdditionalTests {
 
     @isTest static void testMaxAttemptsLeadsToDLQ() {
-        // Arrange - create log
-        Integration_Log__c log = new Integration_Log__c(Payload_Id__c = 'pid-max', Payload__c='{}', Status__c = IntegrationConstants.STATUS_QUEUED);
-        insert log;
-
-        // Mock transient failures
-        Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(500, 'Server error'));
-
         Integer maxAttempts = IntegrationConfig.getMaxAttempts();
 
+        // Pre-populate Attempts__c to one below the limit so a single executor run pushes it to DLQ.
+        // Enqueueing maxAttempts executors simultaneously does not work because after the first run
+        // the log is RETRYSCHEDULED with Next_Attempt_At__c in the future, causing all later executors to skip.
+        Integration_Log__c log = new Integration_Log__c(
+            Payload_Id__c = 'pid-max',
+            Payload__c = '{}',
+            Status__c = IntegrationConstants.STATUS_QUEUED,
+            Attempts__c = maxAttempts - 1
+        );
+        insert log;
+
+        Test.setMock(HttpCalloutMock.class, new MockCalloutGenerator(500, 'Server error'));
+
         Test.startTest();
-        // simulate repeated executor runs
-        for (Integer i = 0; i < maxAttempts; i++) {
-            System.enqueueJob(new IntegrationExecutor(new List<Id>{log.Id}));
-        }
+        System.enqueueJob(new IntegrationExecutor(new List<Id>{ log.Id }));
         Test.stopTest();
 
-        // Assert that a DLQ record exists and Status is DeadLetter
         Integration_Log__c[] res = [SELECT Id, Status__c FROM Integration_Log__c WHERE Id = :log.Id];
         System.assertEquals(IntegrationConstants.STATUS_DEADLETTER, res[0].Status__c);
         Integration_DLQ__c[] dlqs = [SELECT Id FROM Integration_DLQ__c WHERE Integration_Log__c = :log.Id];
