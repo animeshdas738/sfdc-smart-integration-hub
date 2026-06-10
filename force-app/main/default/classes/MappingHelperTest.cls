@@ -16,4 +16,22 @@ private class MappingHelperTest {
         System.assert(out.contains('Acme'));
         System.assert(out.contains('ERP'));
     }
+
+    @isTest static void testDeclarativeMappingWithSObject() {
+        // Covers the SObject dot-walk branch (line 38): context value is an SObject, not a Map
+        Account acct = new Account(Name = 'TestCorp');
+        Map<String,Object> ctx = new Map<String,Object>{ 'Account' => acct };
+        String rules = '[{"source":"Account.Name","target":"companyName"}]';
+        String out = MappingHelper.applyDeclarative(rules, ctx);
+        Map<String,Object> result = (Map<String,Object>) JSON.deserializeUntyped(out);
+        System.assertEquals('TestCorp', result.get('companyName'));
+    }
+
+    @isTest static void testApplyTemplateNullTemplate() {
+        System.assertEquals('', MappingHelper.applyTemplate(null, new Map<String,Object>()));
+    }
+
+    @isTest static void testApplyDeclarativeBlankRules() {
+        System.assertEquals('{}', MappingHelper.applyDeclarative('', new Map<String,Object>()));
+    }
 }

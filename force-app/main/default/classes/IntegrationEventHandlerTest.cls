@@ -149,4 +149,22 @@ private class IntegrationEventHandlerTest {
         Integration_Log__c log = [SELECT Id, Status__c FROM Integration_Log__c WHERE Payload_Id__c = 'evt-retry-001' LIMIT 1];
         System.assertEquals('RetryScheduled', log.Status__c);
     }
+
+    @isTest
+    static void testHandlerCatchesExceptionOnBadEndpointId() {
+        // Covers the catch block (line 28): an invalid Id cast throws StringException,
+        // which the handler swallows so no log is created.
+        Integration_Event__e evt = new Integration_Event__e(
+            Integration_Name__c = 'ExceptionTest',
+            Endpoint_Id__c      = 'NOT-A-VALID-ID',
+            Payload__c          = '{}'
+        );
+
+        Test.startTest();
+        IntegrationEventHandler.handle(new List<Integration_Event__e>{ evt });
+        Test.stopTest();
+
+        List<Integration_Log__c> logs = [SELECT Id FROM Integration_Log__c WHERE Integration_Name__c = 'ExceptionTest'];
+        System.assertEquals(0, logs.size(), 'Exception should be swallowed and no log created');
+    }
 }
