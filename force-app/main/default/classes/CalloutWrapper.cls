@@ -1,10 +1,27 @@
+/**
+ * @description Thin wrapper around the Salesforce Http class that executes outbound POST callouts
+ *              via Named Credentials and normalises the response into a simple result object.
+ */
 public with sharing class CalloutWrapper {
+
+    /**
+     * @description Holds the HTTP status code and response body returned from an outbound callout.
+     */
     public class CalloutResult {
         public Integer statusCode;
         public String body;
         public Map<String, String> headers = new Map<String, String>();
     }
 
+    /**
+     * @description Sends an HTTP POST to the specified Named Credential endpoint and returns the result.
+     *              In test context the callout is made to a dummy HTTPS endpoint so that HttpCalloutMock
+     *              can intercept it without Named Credential resolution issues.
+     * @param namedCredential API name of the Named Credential (e.g. 'Gemini').
+     * @param path            Resource path appended to the Named Credential base URL (e.g. '/v1/chat').
+     * @param body            JSON request body string.
+     * @return                CalloutResult containing the HTTP status code and response body.
+     */
     public static CalloutResult postToNamedCredential(String namedCredential, String path, String body) {
         HttpRequest req = new HttpRequest();
         // During tests, avoid resolving Named Credentials which can sometimes cause runtime

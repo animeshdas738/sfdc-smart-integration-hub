@@ -1,3 +1,7 @@
+/**
+ * @description Centralises all string literals, numeric limits, and configuration defaults used
+ *              across the integration framework to prevent magic values and simplify future updates.
+ */
 public class IntegrationConstants {
     // Status values
     public static final String STATUS_QUEUED = 'Queued';

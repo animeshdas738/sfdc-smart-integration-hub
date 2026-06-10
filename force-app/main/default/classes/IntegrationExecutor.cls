@@ -1,10 +1,27 @@
+/**
+ * @description Queueable job that processes a batch of Integration_Log__c records by making outbound
+ *              HTTP callouts and updating each record's status based on the response. Implements the
+ *              full retry/dead-letter lifecycle: successful responses set Status to Success; transient
+ *              failures schedule a back-off retry up to the configured maximum; permanent failures or
+ *              exhausted retries move the record to DeadLetter and create an Integration_DLQ__c entry.
+ */
 public with sharing class IntegrationExecutor implements Queueable, Database.AllowsCallouts {
     private List<Id> logIds;
 
+    /**
+     * @description Constructs the executor with the list of Integration_Log__c IDs to process.
+     * @param logIds List of record IDs to fetch and attempt delivery for. Null is treated as empty.
+     */
     public IntegrationExecutor(List<Id> logIds) {
         this.logIds = (logIds == null) ? new List<Id>() : logIds;
     }
 
+    /**
+     * @description Queueable entry point. Queries the log records FOR UPDATE to prevent concurrent
+     *              processing, performs the HTTP callout for each eligible record, then bulk-updates
+     *              statuses and bulk-inserts DLQ entries. Records already marked Success are skipped.
+     * @param ctx QueueableContext provided by the platform.
+     */
     public void execute(QueueableContext ctx) {
         if (logIds.isEmpty()) return;
 

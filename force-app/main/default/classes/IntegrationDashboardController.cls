@@ -1,5 +1,13 @@
+/**
+ * @description Aura-enabled controller that aggregates Integration_Log__c records into summary statistics
+ *              for the integration health dashboard Lightning Web Component. All queries are read-only
+ *              aggregate SOQLs with a configurable look-back window.
+ */
 public with sharing class IntegrationDashboardController {
 
+    /**
+     * @description Holds the org-wide rollup statistics returned to the dashboard component.
+     */
     public class DashboardStats {
         @AuraEnabled public Integer totalRequests   { get; set; }
         @AuraEnabled public Integer successCount    { get; set; }
@@ -10,6 +18,9 @@ public with sharing class IntegrationDashboardController {
         @AuraEnabled public List<IntegrationStat> byIntegration { get; set; }
     }
 
+    /**
+     * @description Holds per-integration breakdown statistics included in DashboardStats.byIntegration.
+     */
     public class IntegrationStat {
         @AuraEnabled public String  integrationName { get; set; }
         @AuraEnabled public Integer total           { get; set; }
@@ -19,6 +30,13 @@ public with sharing class IntegrationDashboardController {
         @AuraEnabled public Decimal avgLatencyMs    { get; set; }
     }
 
+    /**
+     * @description Returns aggregated statistics for all Integration_Log__c records created within
+     *              the specified look-back window, including overall counts by status, average latency,
+     *              success rate percentage, and a per-integration breakdown.
+     * @param daysBack Number of days back from now to include in the query window (e.g. 7 for one week).
+     * @return         DashboardStats object populated with totals and per-integration breakdowns.
+     */
     @AuraEnabled(cacheable=true)
     public static DashboardStats getStats(Integer daysBack) {
         Datetime since = System.now().addDays(-daysBack);

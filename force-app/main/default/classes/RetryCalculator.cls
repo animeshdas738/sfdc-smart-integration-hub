@@ -1,8 +1,15 @@
+/**
+ * @description Computes the next retry datetime using an exponential backoff formula with random jitter
+ *              to avoid thundering-herd problems when many failed logs become eligible simultaneously.
+ */
 public with sharing class RetryCalculator {
+
     /**
-     * Compute next attempt datetime using exponential backoff with jitter.
-     * attempts: number of attempts already performed (0-based)
-     * baseSeconds: base delay in seconds
+     * @description Calculates the next attempt time as: now + (baseSeconds * 2^attempts) + random jitter.
+     *              Jitter is a random value in [0, baseSeconds) drawn from a cryptographically random integer.
+     * @param attempts    Number of attempts already performed (0-based). Treated as 0 when null.
+     * @param baseSeconds Base delay in seconds; also used as the jitter ceiling.
+     * @return            Datetime at which the next attempt should be made.
      */
     public static Datetime computeNextAttempt(Integer attempts, Integer baseSeconds) {
         Integer att = (attempts == null) ? 0 : attempts;
