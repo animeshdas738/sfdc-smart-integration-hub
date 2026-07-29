@@ -96,6 +96,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Integration_Endpoint__c.HTTP_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Integration_Endpoint__c.Named_Credential__c</field>
         <readable>true</readable>
     </fieldPermissions>
