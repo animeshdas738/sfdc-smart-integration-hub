@@ -24,11 +24,19 @@
         <members>MockCalloutGenerator</members>
         <members>MockHttpResponseGenerator</members>
         <members>RetryCalculator</members>
+        <members>TestWebhookHandler</members>
+        <members>WebhookEventHandler</members>
+        <members>WebhookHandler</members>
+        <members>WebhookIngestController</members>
+        <members>WebhookIngestControllerTest</members>
+        <members>WebhookResult</members>
+        <members>WebhookSignatureValidator</members>
         <name>ApexClass</name>
     </types>
 
     <types>
         <members>IntegrationEventTrigger</members>
+        <members>WebhookEventTrigger</members>
         <name>ApexTrigger</name>
     </types>
 
@@ -44,6 +52,9 @@
         <members>Integration_Event__e</members>
         <members>Integration_Log__c</members>
         <members>Integration_Settings__mdt</members>
+        <members>Webhook_Endpoint__c</members>
+        <members>Webhook_Event__e</members>
+        <members>Webhook_Log__c</members>
         <name>CustomObject</name>
     </types>
 
@@ -58,6 +69,10 @@
         <members>Integration_DLQ__c.All</members>
         <members>Integration_Endpoint__c.All</members>
         <members>Integration_Log__c.All</members>
+        <members>Webhook_Endpoint__c.All</members>
+        <members>Webhook_Log__c.All</members>
+        <members>Webhook_Log__c.Failed_Webhooks</members>
+        <members>Webhook_Log__c.Recent_Webhooks</members>
         <name>ListView</name>
     </types>
 
