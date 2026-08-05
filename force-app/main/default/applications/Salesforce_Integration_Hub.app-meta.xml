@@ -13,8 +13,11 @@
     <label>Salesforce Integration Hub</label>
     <navType>Standard</navType>
     <setupExperience>all</setupExperience>
+    <tabs>Integration_Dashboard</tabs>
     <tabs>Integration_Endpoint__c</tabs>
     <tabs>Integration_DLQ__c</tabs>
     <tabs>Integration_Log__c</tabs>
+    <tabs>Webhook_Endpoint__c</tabs>
+    <tabs>Webhook_Log__c</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>
