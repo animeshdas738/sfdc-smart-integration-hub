@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integration_Endpoint__c</fullName>
+    <inlineHelpText>If set, handler will publish to this integration endpoint</inlineHelpText>
+    <label>Integration Endpoint</label>
+    <referenceTo>Integration_Endpoint__c</referenceTo>
+    <relationshipLabel>Webhook Endpoints</relationshipLabel>
+    <relationshipName>Webhook_Endpoints</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Lookup</type>
+</CustomField>

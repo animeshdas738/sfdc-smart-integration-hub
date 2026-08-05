@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signature_Algorithm__c</fullName>
+    <inlineHelpText>Select algorithm used by external system: HMAC_SHA256 (most common), RSA_SHA256, or None (testing only)</inlineHelpText>
+    <label>Signature Algorithm</label>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>HMAC_SHA256</fullName>
+                <default>true</default>
+                <label>HMAC_SHA256</label>
+            </value>
+            <value>
+                <fullName>RSA_SHA256</fullName>
+                <default>false</default>
+                <label>RSA_SHA256</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
