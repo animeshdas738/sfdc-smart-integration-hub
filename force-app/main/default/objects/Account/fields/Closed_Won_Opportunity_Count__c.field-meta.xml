@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_Opportunity_Count__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of Opportunities on this Account whose Stage is Closed Won. Maintained automatically by Salesforce; it cannot be edited.</inlineHelpText>
+    <label>Closed Won Opportunity Count</label>
+    <summaryFilterItems>
+        <field>Opportunity.StageName</field>
+        <operation>equals</operation>
+        <value>Closed Won</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Opportunity.AccountId</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
