@@ -1,0 +1,32 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:table">
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium generic-table-body">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+
+            <template if:true={hasError}>
+                <p class="slds-text-color_error" role="alert">{error}</p>
+            </template>
+
+            <template if:true={hasWarnings}>
+                <template for:each={warnings} for:item="warning">
+                    <p key={warning} class="slds-text-color_weak">{warning}</p>
+                </template>
+            </template>
+
+            <template if:true={showTable}>
+                <lightning-datatable
+                    key-field={keyField}
+                    data={rows}
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+
+            <template if:true={isEmpty}>
+                <p class="slds-text-align_center">No records found.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

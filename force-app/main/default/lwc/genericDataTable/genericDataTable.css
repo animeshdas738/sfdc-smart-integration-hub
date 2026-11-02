@@ -1,0 +1,8 @@
+:host {
+    position: relative;
+    display: block;
+}
+
+.generic-table-body {
+    min-height: 2rem;
+}
